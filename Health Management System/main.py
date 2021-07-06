@@ -1,1 +1,6 @@
-
+print("Enter your name")
+user_name = input()
+print("Welcome " + user_name + " to Python Health Management System -- By Jay")
+print("\nWhat do you want to focus on:")
+print("1) Your Exercises\n2) Your Diet\n")
+select = input()
