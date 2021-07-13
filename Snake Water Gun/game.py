@@ -22,7 +22,7 @@ while i in range(10):
         print("Computer's Point!!\n")
         comp_points = comp_points + 1
     elif comp_choice == "Snake" and user_sel == "Gun":
-        print("You Po!!\n")
+        print("Your Point!!\n")
         user_points = user_points + 1
     elif comp_choice == "Water" and user_sel == "Water":
         print("Tie!!\n")
@@ -30,7 +30,7 @@ while i in range(10):
         print("Computer's Point!!\n")
         comp_points = comp_points + 1
     elif comp_choice == "Water" and user_sel == "Snake":
-        print("You won!!\n")
+        print("Your Point!!\n")
         user_points = user_points + 1
     elif comp_choice == "Gun" and user_sel == "Gun":
         print("Tie!!\n")
@@ -45,7 +45,7 @@ while i in range(10):
 print("\nComputer Points: ", comp_points)
 print("User Points: ", user_points)
 if comp_points > user_points:
-    print("Computer's Point!!\n")
+    print("Computer Won!!\n")
 elif comp_points < user_points:
     print("You Won!!")
 else:
