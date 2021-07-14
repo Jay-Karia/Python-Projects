@@ -27,9 +27,8 @@ if select == "1":
         print(f"Exponents"
               f": {int(user_exp)}\n")
     for i in range(user_exp):
-        if user_exp != 0:
-            i = i + 1
-            print(f"{user_num} ^ {i} == {user_num ** i}")
+        i = i + 1
+        print(f"{user_num} ^ {i} == {user_num ** i}")
 elif select == "2":
     print("2) Single Number")
     n = None
