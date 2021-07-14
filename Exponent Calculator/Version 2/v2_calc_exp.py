@@ -24,7 +24,7 @@ if select == "1":
         print(f"Exponents: {int(user_exp)}\n")
     except ValueError as ve:
         user_exp = len(exp)
-        print(f"Exponents2"
+        print(f"Exponents"
               f": {int(user_exp)}\n")
     for i in range(user_exp):
         if user_exp != 0:
