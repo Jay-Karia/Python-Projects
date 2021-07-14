@@ -43,7 +43,7 @@ while i in range(10):
 
 
 print("\nComputer Points: ", comp_points)
-print("User Points: ", user_points)
+print("Your Points: ", user_points)
 if comp_points > user_points:
     print("Computer Won!!\n")
 elif comp_points < user_points:
