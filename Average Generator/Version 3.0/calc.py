@@ -11,16 +11,14 @@ def avg(num_n):
     for i in range(num_n):
         i += 1
         try:
-            n = (input(f"\nEnter number {i}: "))
+            n = (input(f"Enter number {i}: "))
             nums = int(n)
-            print(f"{nums}")
         except ValueError:
             nums = len(n)
-            print(f"{nums}")
         Sum = Sum + i
         pass
     average = Sum / nums
-    print(f"\nAverage == {average}")
+    print(f"\nAverage: {average}")
 num_nu = 0
 num = None
 try:
