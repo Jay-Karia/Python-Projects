@@ -32,7 +32,7 @@ valid = True
 
 while valid == True:
     select = input()
-    
+
     if select == "1":
         delete_commas(user_string)
         break
