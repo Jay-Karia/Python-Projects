@@ -1,5 +1,5 @@
 # Python-Projects
-- This is a repo where I will upload my all Python Projects made by Jay 
+- This is a repositoey where I will upload my all Python Projects 
 - My one of the best Python Projects:
 - - Exponent Calculator
 - - String Santizer
