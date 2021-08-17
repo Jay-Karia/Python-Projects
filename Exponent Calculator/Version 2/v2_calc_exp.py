@@ -1,4 +1,4 @@
-print("Welcome to Exponent Calculator Developed --  By Jay")
+print("\nWelcome to Exponent Calculator Developed --  By Jay")
 print("For more Information check out the README.md file!")
 print("\n1) Table of Exponent\n2) Single Number")
 
