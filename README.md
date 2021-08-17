@@ -1,8 +1,10 @@
-# Python-Projects
-- This is a repositoey where I will upload my all Python Projects 
-- My one of the best Python Projects:
-- - Exponent Calculator
-- - String Santizer
-- - and Average Generator
-- More Python Projects will be made on your request!
-- If you want to make Python Projects with me, contact me at jay.sanjay.karia@gmail.com
+# Python IO Program
+- This is a Python Program where the user can read or write into any files present in their respective Computer
+- Function Available for Input and Output (IO) in the program:
+- - List the file name in the given directory
+- - Read to a file
+- - Write into into a file
+- - Append into a file
+- - Create a new file
+- - Delete a file
+- Note: This Program is not completed yet.
