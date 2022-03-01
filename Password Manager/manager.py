@@ -19,7 +19,6 @@ code_words = ['@#', '(', '\'', 'GH&^', '%', '!', '**', '%$#', '?>', '+', '.', ',
 alphabets = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '1', '2', '3', '4', '5', '6', '7', '8', 
 '9', '0']
 
-counter = 0
 
 def Encode(password, security_key):
     global encoded_password
@@ -48,9 +47,7 @@ def Decode(password, security_key):
         pass
 
 def WritingIntoJSON(file):
-    global counter
-    print("Enter your name")
-    name = input()
+    counter = 0
     print("\nEnter the Password")
     password = input()
     print("\nEnter the Message")
@@ -68,20 +65,30 @@ def WritingIntoJSON(file):
     Encode(password, security_key)
 
     counter+=1
-
     file = file.replace('.json', '')
-    with open(f"{file}.json", 'w') as file:
-        write_dict = {
-            f"Password {counter}": {
-                "Password": encoded_password,
-                "Message": message,
-                "Security Key": encoded_key,
-                "Account Name": account_name,
-                "Organization": agency
-            }
-        }
-        json.dump(write_dict, file)
+    filename = f"{file}.json"
 
+    entry = { f"Password {counter}": {
+            "Password": encoded_password,
+            "Message": message,
+            "Security Key": encoded_key,
+            "Account Name": account_name,
+            "Organization": agency
+        }
+    }
+
+    with open(filename, 'r') as file:
+        data = json.load(file)
+
+    data[f"Password {counter}"] = {}
+    data[f"Password {counter}"]['Password'] = encoded_password
+    data[f"Password {counter}"]['Message'] = message
+    data[f"Password {counter}"]['Security Key'] = encoded_key
+    data[f"Password {counter}"]['Account Name'] = account_name
+    data[f"Password {counter}"]['Organization'] = agency
+
+    with open(filename, 'w') as json_file:
+        json.dump(data, json_file)
 
 print("1. Get your existing password\n2. Store a new password\n")
 # sel = input()
