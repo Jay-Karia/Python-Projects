@@ -3,16 +3,18 @@ import random
 import json
 
 # Globals
-password = "09Jan197#"
-message = "My google account password"
-security_key = "908&*^"
-account_name = "jay.sanjay.karia@gmail.com"
-agency = "Google"
+password = ""
+message = ""
+security_key = ""
+account_name = ""
+agency = ""
 
 encoded_password = ""
 encoded_key = ""
 decoded_password = ""
 decoded_key = ""
+
+user_name = ""
 
 code_words = ['@#', '(', '\'', 'GH&^', '%', '!', '**', '%$#', '?>', '+', '.', ',', '---', '*///*', '*8', '^', '*&', '[]', ']]', 'gb', '<>', '===', ':', ';', '\"', '{', '||', '~', '`',
  ',,', '__', '-', '#@', '/*', ')(', '^^^']
@@ -46,8 +48,16 @@ def Decode(password, security_key):
     except:
         pass
 
-def WritingIntoJSON(file):
-    counter = 0
+def GetValueFromUser():
+    global user_name
+    global message
+    global security_key
+    global account_name
+    global agency
+    global password
+
+    print("Enter your name")
+    user_name = input()
     print("\nEnter the Password")
     password = input()
     print("\nEnter the Message")
@@ -58,37 +68,30 @@ def WritingIntoJSON(file):
     account_name = input()
     print("\nEnter the agency or organization")
     agency = input()
+    
+def WritingIntoJSON(file):
 
-    random.shuffle(code_words)
-    random.shuffle(alphabets)
+    counter = 0
+
+    with open(f"{file_name}.json", 'w') as json_file:
+        json.dump({"Passwords": [{}]}, json_file)
 
     Encode(password, security_key)
 
-    counter+=1
     file = file.replace('.json', '')
     filename = f"{file}.json"
 
-    entry = { f"Password {counter}": {
-            "Password": encoded_password,
-            "Message": message,
-            "Security Key": encoded_key,
-            "Account Name": account_name,
-            "Organization": agency
-        }
-    }
+    with open(filename, 'r') as f:
+        data = json.load(f)
 
-    with open(filename, 'r') as file:
-        data = json.load(file)
+    data["Passwords"][counter]['Password'] = encoded_password
+    data["Passwords"][counter]['Message'] = message
+    data["Passwords"][counter]['Security Key'] = encoded_key
+    data["Passwords"][counter]['Account Name'] = account_name
+    data["Passwords"][counter]['Organization'] = agency
 
-    data[f"Password {counter}"] = {}
-    data[f"Password {counter}"]['Password'] = encoded_password
-    data[f"Password {counter}"]['Message'] = message
-    data[f"Password {counter}"]['Security Key'] = encoded_key
-    data[f"Password {counter}"]['Account Name'] = account_name
-    data[f"Password {counter}"]['Organization'] = agency
-
-    with open(filename, 'w') as json_file:
-        json.dump(data, json_file)
+    with open(filename, 'w') as f:
+        json.dump(data, f)
 
 print("1. Get your existing password\n2. Store a new password\n")
 # sel = input()
@@ -97,5 +100,7 @@ sel = "2"
 if sel == "2":
     # print("Enter the json file name where all of you passwords would be stored (example: <username>_passwords)")
     # file_name = input()
-    file_name = "jay_passwords"
+    # file_name = f"{user_name}_passwords"
+    file_name = f"_passwords"
+    GetValueFromUser()
     WritingIntoJSON(file_name)
