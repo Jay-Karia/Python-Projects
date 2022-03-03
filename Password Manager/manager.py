@@ -15,6 +15,7 @@ decoded_password = ""
 decoded_key = ""
 
 user_name = ""
+counter = 0
 
 code_words = ['@#', '(', '\'', 'GH&^', '%', '!', '**', '%$#', '?>', '+', '.', ',', '---', '*///*', '*8', '^', '*&', '[]', ']]', 'gb', '<>', '===', ':', ';', '\"', '{', '||', '~', '`',
  ',,', '__', '-', '#@', '/*', ')(', '^^^']
@@ -55,26 +56,24 @@ def GetValueFromUser():
     global account_name
     global agency
     global password
+    global pass_name
 
-    print("Enter your name")
+    print("Enter Password Name to be Identified")
+    pass_name = input()
+    print("\nEnter your name")
     user_name = input()
     print("\nEnter the Password")
     password = input()
-    print("\nEnter the Message")
-    message = input()
     print("\nEnter the Security Key")
     security_key = input()
     print("\nEnter the Account Name")
     account_name = input()
-    print("\nEnter the agency or organization")
-    agency = input()
     
 def WritingIntoJSON(file):
 
-    counter = 0
-
-    with open(f"{file_name}.json", 'w') as json_file:
-        json.dump({"Passwords": [{}]}, json_file)
+    with open(f"{file_name}.json", 'a+') as json_file:
+        json_file.write('{}')
+        
 
     Encode(password, security_key)
 
@@ -84,11 +83,12 @@ def WritingIntoJSON(file):
     with open(filename, 'r') as f:
         data = json.load(f)
 
-    data["Passwords"][counter]['Password'] = encoded_password
-    data["Passwords"][counter]['Message'] = message
-    data["Passwords"][counter]['Security Key'] = encoded_key
-    data["Passwords"][counter]['Account Name'] = account_name
-    data["Passwords"][counter]['Organization'] = agency
+    data[pass_name] = {}
+    data[pass_name]['Password'] = encoded_password
+    data[pass_name]['Message'] = message
+    data[pass_name]['Security Key'] = encoded_key
+    data[pass_name]['Account Name'] = account_name
+    data[pass_name]['Organization'] = agency
 
     with open(filename, 'w') as f:
         json.dump(data, f)
