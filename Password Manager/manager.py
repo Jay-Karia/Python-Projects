@@ -1,3 +1,4 @@
+from fileinput import filename
 from tkinter import *
 import random
 import json
@@ -58,22 +59,29 @@ def GetValueFromUser():
     global password
     global pass_name
 
-    print("Enter Password Name to be Identified")
-    pass_name = input()
-    print("\nEnter your name")
-    user_name = input()
-    print("\nEnter the Password")
-    password = input()
-    print("\nEnter the Security Key")
-    security_key = input()
-    print("\nEnter the Account Name")
-    account_name = input()
-    
+    # print("Enter Password Name to be Identified")
+    # pass_name = input()
+    pass_name = "sdf"
+    # print("\nEnter your name")
+    # user_name = input()
+    user_name = "gfh"
+    # print("\nEnter the Password")
+    # password = input()
+    password = "90uj"
+    # print("\nEnter the Security Key")
+    # security_key = input()
+    security_key = "567uh"
+    # print("\nEnter the Account Name")
+    # account_name = input()
+    account_name = "-=908ik"
+
+def CreateNewFile(file_name):
+    with open(f'{file_name}.json', 'w') as json_file:
+        json.dump({"Passwords": [{}]}, json_file)
+
 def WritingIntoJSON(file):
 
-    with open(f"{file_name}.json", 'a+') as json_file:
-        json_file.write('{}')
-        
+    # with open(f"{file_name}.json", 'a+') as json_file:
 
     Encode(password, security_key)
 
@@ -83,12 +91,13 @@ def WritingIntoJSON(file):
     with open(filename, 'r') as f:
         data = json.load(f)
 
-    data[pass_name] = {}
-    data[pass_name]['Password'] = encoded_password
-    data[pass_name]['Message'] = message
-    data[pass_name]['Security Key'] = encoded_key
-    data[pass_name]['Account Name'] = account_name
-    data[pass_name]['Organization'] = agency
+    # data['Passwords'][0][pass_name] = {}
+    data["Passwords"][0][pass_name] = {}
+    data["Passwords"][0][pass_name]['Password'] = encoded_password
+    data["Passwords"][0][pass_name]['Message'] = message
+    data["Passwords"][0][pass_name]['Security Key'] = encoded_key
+    data["Passwords"][0][pass_name]['Account Name'] = account_name
+    data["Passwords"][0][pass_name]['Organization'] = agency
 
     with open(filename, 'w') as f:
         json.dump(data, f)
@@ -98,9 +107,13 @@ print("1. Get your existing password\n2. Store a new password\n")
 sel = "2"
 
 if sel == "2":
-    # print("Enter the json file name where all of you passwords would be stored (example: <username>_passwords)")
-    # file_name = input()
-    # file_name = f"{user_name}_passwords"
-    file_name = f"_passwords"
-    GetValueFromUser()
-    WritingIntoJSON(file_name)
+    print("1.Create a new Passsword File\n2.Append Password to existing file")
+    # choice = input()
+    choice = "1"
+    if choice == "1":
+        # print("Enter the json file name where all of you passwords would be stored (example: <username>_passwords)")
+        # file_name = input()
+        file_name = "_passwords"
+        GetValueFromUser()
+        # CreateNewFile(file_name)
+        WritingIntoJSON(file_name)
