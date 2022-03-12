@@ -1,3 +1,4 @@
+from email import message
 from fileinput import filename
 from tkinter import *
 import random
@@ -6,10 +7,8 @@ import json
 # Globals
 
 password = ""
-message = ""
 security_key = ""
 account_name = ""
-agency = ""
 
 encoded_password = ""
 encoded_key = ""
@@ -19,7 +18,7 @@ decoded_key = ""
 user_name = ""
 counter = 0
 
-code_words = ['@#', '(', '\'', 'GH&^', '%', '!', '**', '%$#', '?>', '+', '.', ',', '---', '*///*', '*8', '^', '*&', '[]', ']]', 'gb', '<>', '===', ':', ';', '\"', '{', '||', '~', '`',
+code_words = ['@#', '(', '\'', '&^', '%', '!', '**', '%$#', '?>', '+', '.', ',', '--', '/*', '*8', '^', '*&', '[]', ']]', 'gb', '<>', '==', ':', ';', '\"', '{', '||', '~', '`',
  ',,', '__', '-', '#@', '/*', ')(', '^^^']
 alphabets = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '1', '2', '3', '4', '5', '6', '7', '8', 
 '9', '0']
@@ -53,93 +52,89 @@ def Decode(password, security_key):
 
 def GetValueFromUser():
     global user_name
-    global message
     global security_key
     global account_name
-    global agency
     global password
-    global pass_name
 
-    # print("Enter Password Name to be Identified")
-    # pass_name = input()
-    pass_name = "sdf"
-    # print("\nEnter your name")
-    # user_name = input()
-    user_name = "gfh"
-    # print("\nEnter the Password")
-    # password = input()
-    password = "90uj"
-    # print("\nEnter the Security Key")
-    # security_key = input()
-    security_key = "567uh"
-    # print("\nEnter the Account Name")
-    # account_name = input()
-    account_name = "-=908ik"
+    print("\nEnter the Password")
+    password = input()
+    print("\nEnter the Security Key")
+    security_key = input()
+    print("\nEnter the Account Name")
+    account_name = input()
 
 def CreateNewFile(file_name):
     with open(f'{file_name}.json', 'w') as json_file:
-        json.dump({"Passwords": [{"Total Passwords": 0}]}, json_file)
+        json.dump({"Total Passwords": 0,"Passwords": []}, json_file)
 
 def WritingIntoJSON(file):
 
     with open(f"{file_name}.json", 'r') as json_file:
         file_ = json.load(json_file)
-        pass_num = file_[0]['Total Passwords']
-
-    # with open(f'{file_name}.json', 'a+') as json_file:
-    #     json.dump([{"Total Passwords": pass_num}, {}], json_file)
+        pass_num = file_['Total Passwords']
 
     Encode(password, security_key)
 
     data_dict = {
-        # pass_name: {},
         "Password": encoded_password,
-        "Message": message,
         "Security Key": encoded_key,
         "Account Name": account_name,
-        "Organization": agency
     }
-
-    file = file.replace('.json', '')
-    filename = f"{file}.json"
-
-    with open(filename, 'r+') as f:
-        data = json.load(f)
-        data.update(data_dict)
-        data.seek(0)
-        json.dump(data, f)
 
     pass_num = int(pass_num)
     pass_num += 1
 
 
-    # data[pass_num][pass_name] = {}
-    # data[pass_num][pass_name]['Password'] = encoded_password
-    # data[pass_num][pass_name]['Message'] = message
-    # data[pass_num][pass_name]['Security Key'] = encoded_key
-    # data[pass_num][pass_name]['Account Name'] = account_name
-    # data[pass_num][pass_name]['Organization'] = agency
-    data[0]["Total Passwords"] = pass_num
+    with open(f'{file_name}.json','r+') as file:
+        file_data = json.load(file)
+        file_data["Passwords"].append(data_dict)
+        file_data["Total Passwords"] = pass_num
+        file.seek(0)
+        json.dump(file_data, file, indent = 4)
 
+def GetPassword(file):
+    # print("Enter security key")
+    # key = input()
+    key = "0901"
 
-    with open(filename, 'w') as f:
-        json.dump(data, f)
+    file_name = f"{file}.json"
+    with open(file_name, 'r') as json_file:
+        data = json.load(json_file)
 
-print("1. Get your existing password\n2. Store a new password\n")
+        Encode("", key)
+
+        for i in range(0, len(data["Passwords"])):
+            if data["Passwords"][i]["Security Key"] == encoded_key:
+                json_pass = data["Passwords"][i]["Password"]
+                json_key = data["Passwords"][i]["Security Key"]
+                json_account_name = data["Passwords"][i]["Account Name"]
+                Decode(json_pass, json_key)
+                print(decoded_password)
+                break
+            else:
+                print("Invalid Security Key")
+
+# print("1. Get your existing password\n2. Store a new password\n3. Delete a Password file or a password")
 # sel = input()
-sel = "2"
+sel = "1"
 
 if sel == "2":
     print("1.Create a new Passsword File\n2.Append Password to existing file")
-    # choice = input()
-    choice = "1"
+    choice = input()
     if choice == "1":
-        # print("Enter the json file name where all of you passwords would be stored (example: <username>_passwords)")
-        # file_name = input()
-        file_name = "_passwords"
+        print("Enter the json file name where all of you passwords would be stored")
+        file_name = input()
+        CreateNewFile(file_name)
         GetValueFromUser()
-        # CreateNewFile(file_name)
+        WritingIntoJSON(file_name)
+    elif choice == "2":
+        print("Enter the password file name")
+        file_name = input()
+        GetValueFromUser()
         WritingIntoJSON(file_name)
 
-
-# TODO: Add automatically comma and a bracket for entering a new password
+elif sel == "1":
+    print("Enter the password file")
+    # file_name = input()
+    file_name = "jay_passwords"
+    GetPassword(file_name)
