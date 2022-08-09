@@ -15,9 +15,9 @@ def avg(num_n):
             nums = int(n)
         except ValueError:
             nums = len(n)
-        Sum = Sum + i
+        Sum = Sum + nums
         pass
-    average = Sum / nums
+    average = Sum / num_n
     print(f"\nAverage: {average}")
 num_nu = 0
 num = None
